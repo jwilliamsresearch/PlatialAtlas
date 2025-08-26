@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Platial Atlas - A global research project mapping how people experience and give meaning to places, from villages to megacities, using multi-source open data and AI-driven descriptors to understand the lived geography of human settlements worldwide.">
+    <meta name="keywords" content="platial geography, place experience, community mapping, cultural geography, human settlements, rural development, international collaboration, place meaning, lived experience, GIS">
+    <parameter name="author" content="James Williams, Platial Atlas Research Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Platial Atlas - Understanding Places as Lived Experiences">
+    <meta property="og:description" content="A global research project mapping how people experience and give meaning to places, from villages to megacities, supporting international development and community understanding.">
+    <meta property="og:image" content="./images/promo/platial-light.png">
+    <meta property="og:url" content="https://platiatatlas.org">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Platial Atlas - Understanding Places as Lived Experiences">
+    <meta name="twitter:description" content="A global research project mapping how people experience and give meaning to places, from villages to megacities, supporting international development and community understanding.">
+    <meta name="twitter:image" content="./images/promo/platial-light.png">
+    
+    <title>Platial Atlas: Understanding Places as Lived Experiences</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./css/style.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ResearchProject",
+        "name": "Platial Atlas",
+        "description": "A global research project mapping how people experience and give meaning to places, from villages to megacities, using multi-source open data and AI-driven descriptors to understand the lived geography of human settlements worldwide.",
+        "url": "https://platiatatlas.org",
+        "leader": {
+            "@type": "Person",
+            "name": "James Williams"
+        },
+        "about": "Platial Geography, Place Experience, Community Mapping, Cultural Geography, Human Settlements, International Development",
+        "keywords": "platial geography, place experience, community mapping, cultural geography, human settlements, rural development, international collaboration, place meaning, lived experience, GIS"
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <img src="./images/logo-white.png" alt="Platial Atlas Logo" height="32">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#methodology">Methodology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#impact">Impact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#research">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Split Layout -->
+    <section id="home" class="hero-section position-relative overflow-hidden">
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <!-- Left Side - Content -->
+                <div class="col-lg-4 d-flex align-items-center">
+                    <div class="hero-content p-4 p-lg-5">
+                        <div class="text-white">
+                            <img src="./images/logo-white.png" alt="Platial Atlas" class="hero-logo mb-4 fade-in-up">
+                            <p class="lead mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                                Understanding how people experience and give meaning to places, through collaborative research that supports communities in documenting their lived experiences.
+                            </p>
+                            <div class="hero-buttons fade-in-up" style="animation-delay: 0.4s;">
+                                <a href="#about" class="btn btn-primary btn-lg me-3 mb-2">
+                                    Explore Project
+                                </a>
+                                <a href="#methodology" class="btn btn-outline-light btn-lg mb-2">
+                                    Our Approach
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Side - Parallax -->
+                <div class="col-lg-8 position-relative">
+                    <div id="scene" class="parallax-container h-100">
+                        <div class="layer" data-depth="0.2">
+                            <img src="./images/parralax/background.png" alt="City Background" class="parallax-img-fg">
+                        </div>
+                        <div class="layer" data-depth="0.5">
+                            <div class="particles-container"></div>
+                        </div>
+                        <div class="layer" data-depth="0.8">
+                            <div class="bubbles-container"></div>
+                        </div>
+                        <div class="layer" data-depth="0.6">
+                            <img src="./images/parralax/foreground.png" alt="City Foreground" class="parallax-img-bg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <a href="#about" class="text-white text-decoration-none">
+                <i class="bi bi-chevron-down fs-1 animate-bounce"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Reimagining Place in Digital Technology.</h2>
+                    <p class="lead mb-4">
+                        Traditional geographic research relies on administrative boundaries that fail to capture how people actually experience and give meaning to their places. The Platial Atlas revolutionizes this approach through exploring <i>place instead of space</i>.
+                    </p>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-heart-fill text-primary fs-3"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="fw-bold">Lived Experience</h5>
+                                    <p class="mb-0">Understanding places through the eyes of those who live, work, and find meaning there.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-globe-americas text-primary fs-3"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="fw-bold">Universal Scale</h5>
+                                    <p class="mb-0">From villages to global cities, everywhere has platial stories to explore.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-people-fill text-primary fs-3"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="fw-bold">Community Centered</h5>
+                                    <p class="mb-0">Empowering communities to document and understand their own sense of place.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-unlock text-primary fs-3"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="fw-bold">Public Access</h5>
+                                    <p class="mb-0">Open data and methods intends to make place analysis available to all communities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="./images/promo/platial-light.png" alt="Platial Atlas Visualization" class="img-fluid rounded shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section -->
+    <section id="methodology" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">PlaceCrafter Framework</h2>
+                    <p class="lead">
+                        Our six-step methodology transforms diverse place data into meaningful understanding of how communities function, from market towns to rural villages, from suburban neighborhoods to megacities.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm methodology-card">
+                        <div class="card-body text-center p-4">
+                            <div class="methodology-icon mb-3">
+                                <i class="bi bi-funnel text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">1. Filter</h5>
+                            <p class="card-text">Harmonise diverse place data into meaningful categories: e.g., community spaces, commerce, culture, nature, and heritage.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm methodology-card">
+                        <div class="card-body text-center p-4">
+                            <div class="methodology-icon mb-3">
+                                <i class="bi bi-diagram-3 text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">2. Cluster</h5>
+                            <p class="card-text">Apply context-aware algorithms to identify how places naturally form based on community use and meaning.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm methodology-card">
+                        <div class="card-body text-center p-4">
+                            <div class="methodology-icon mb-3">
+                                <i class="bi bi-check-circle text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">3. Validate</h5>
+                            <p class="card-text">Test cluster quality with Silhouette scores, Moran's I, and Nearest Neighbour Index.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm methodology-card">
+                        <div class="card-body text-center p-4">
+                            <div class="methodology-icon mb-3">
+                                <i class="bi bi-layers text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">4. Enrich</h5>
+                            <p class="card-text">Add environmental and cultural layers: e.g., landscapes, heritage, stories, and local knowledge.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm methodology-card">
+                        <div class="card-body text-center p-4">
+                            <div class="methodology-icon mb-3">
+                                <i class="bi bi-chat-quote text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">5. Describe</h5>
+                            <p class="card-text">Generate context-aware place descriptions that represent local knowledge and a dynamic understanding of places.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm methodology-card">
+                        <div class="card-body text-center p-4">
+                            <div class="methodology-icon mb-3">
+                                <i class="bi bi-eye text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">6. Visualise</h5>
+                            <p class="card-text">Create accessible maps and stories that people can use to understand and share their place experiences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PlaceCrafter Implementation -->
+            <div class="row mt-5">
+                <div class="col-lg-12 mx-auto">
+                    <div class="card border-0 shadow-lg bg-primary text-white">
+                        <div class="card-body p-4 p-lg-5">
+                            <div class="row align-items-center">
+                                <div class="col-lg-8">
+                                    <h4 class="fw-bold mb-3">
+                                        PlaceCrafter Demonstrator
+                                    </h4>
+                                    <p class="lead mb-3">
+                                        See the early stage work on the <b>PlaceCrafter Framework</b> in action through our web-based geospatial tool that identifies functional urban regions by clustering OpenStreetMap Points of Interest.
+                                    </p>
+                                    <a href="./placecrafter.html" class="btn btn-warning btn-lg">
+                                        <i class="bi bi-arrow-right me-2"></i>
+                                        Explore PlaceCrafter
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 text-center">
+                                    <img src="./images/placeCrafter/placecrafter-logo.png" alt="PlaceCrafter Logo" class="img-fluid" style="max-height: 120px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Interested in Joining?</h2>
+                    <p class="lead">
+                        A growing network of researchers, community partners, and institutions collaborating to advance platial geography and support place-based understanding worldwide.
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="team-avatar mb-3">
+                                <i class="bi bi-person-circle text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">James Williams</h5>
+                            <p class="text-muted mb-3">Project Lead</p>
+                            <p class="card-text">Leading research in platial information geospatial analysis studies, fostering collaborative networks across academic and community partners worldwide.</p>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/jameswilliamssci/" class="text-primary me-2" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                                <a href="mailto:JWilliams@staff.newman.ac.uk" class="text-primary"><i class="bi bi-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold mb-4">Impact & Collaboration</h2>
+                    <p class="lead">
+                        Supporting communities and researchers worldwide in understanding their place experiences, fostering international research collaboration, and democratising geographic knowledge for sustainable development.
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-10 mx-auto">
+                    <div class="bg-white bg-opacity-10 rounded p-4">
+                        <h5 class="fw-bold mb-1">Supporting UN Sustainable Development Goals</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i><strong>SDG 11:</strong> Sustainable Cities and Communities</p>
+                                <p class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i><strong>SDG 1:</strong> No Poverty (rural development)</p>
+                                <p class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i><strong>SDG 10:</strong> Reduced Inequalities</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i><strong>SDG 17:</strong> Partnerships for the Goals</p>
+                                <p class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i><strong>SDG 4:</strong> Quality Education (research capacity)</p>
+                                <p class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i><strong>SDG 16:</strong> Peace and Strong Institutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Research Publications</h2>
+                    <p class="lead">
+                        Our research contributes to the growing field of platial geography through peer-reviewed publications, conference presentations, and open-source methodologies.
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body p-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center mb-3 mb-md-0">
+                                    <div class="research-icon">
+                                        <i class="bi bi-file-earmark-text text-primary fs-1"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <h5 class="card-title fw-bold text-primary mb-2">
+                                        PlaceCrafter: Curating Urban Functional Regions through Platial Clustering of OpenStreetMap Points of Interest
+                                    </h5>
+                                    <p class="text-muted mb-2">
+                                        <strong>Authors:</strong> Williams, James and Priestnall, Gary
+                                    </p>
+                                    <p class="text-muted mb-2">
+                                        <strong>Conference:</strong> Proceedings of the OSMScience 2025, Manila, Philippines
+                                    </p>
+                                    <p class="text-muted mb-3">
+                                        <strong>Year:</strong> 2025
+                                    </p>
+                                    <p class="card-text mb-3">
+                                        This paper introduces the PlaceCrafter methodology for identifying functional urban regions through the platial clustering of OpenStreetMap points of interest, moving beyond traditional administrative boundaries to capture how cities are actually experienced and used.
+                                    </p>
+                                    <div class="research-links">
+                                        <span class="badge bg-warning text-dark me-2">
+                                            <i class="bi bi-clock me-1"></i>Coming Soon
+                                        </span>
+                                        <span class="badge bg-secondary me-2">
+                                            <i class="bi bi-geo-alt me-1"></i>Platial Geography
+                                        </span>
+                                        <span class="badge bg-secondary me-2">
+                                            <i class="bi bi-map me-1"></i>OpenStreetMap
+                                        </span>
+                                        <span class="badge bg-secondary">
+                                            <i class="bi bi-diagram-3 me-1"></i>Clustering
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p class="text-muted">
+                            <i class="bi bi-info-circle me-2"></i>
+                            More publications are in development. Check back for updates on our latest research findings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold mb-4">Join Our Research Community</h2>
+                    <p class="lead">
+                        Connect with our international research network, share your place stories, and collaborate on advancing the understanding of lived experiences worldwide.
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <div class="social-links-large mb-4">
+                        <a href="https://github.com/jwilliamsresearch" class="text-white me-4" target="_blank" rel="noopener"><i class="bi bi-github fs-2"></i></a>
+                        <a href="https://www.linkedin.com/in/jameswilliamssci/" class="text-white me-4" target="_blank" rel="noopener"><i class="bi bi-linkedin fs-2"></i></a>
+                        <a href="mailto:JWilliams@staff.newman.ac.uk" class="text-white"><i class="bi bi-envelope fs-2"></i></a>
+                    </div>
+                    <p class="mb-2">
+                        <i class="bi bi-envelope me-2"></i>
+                        <a href="mailto:JWilliams@staff.newman.ac.uk" class="text-white text-decoration-none">JWilliams@staff.newman.ac.uk</a>
+                    </p>
+                    <p class="mb-0">
+                        International Collaboration • Community-Centered Research • Global Partnerships
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">2025 Platial Atlas. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white text-decoration-none me-3">Terms of Use</a>
+                    <a href="#" class="text-white text-decoration-none">License: Content is CC BY 4.0. Code is MIT License.</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Parallax.js -->
+    <script src="https://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./js/script.js"></script>
+</body>
+</html>

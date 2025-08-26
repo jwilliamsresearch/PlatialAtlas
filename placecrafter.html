@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PlaceCrafter - Advanced methodology for curating functional regions through platial clustering of OpenStreetMap points of interest, part of the Platial Atlas research project.">
+    <meta name="keywords" content="PlaceCrafter, platial clustering, OpenStreetMap, functional regions, platial geography, urban analytics, place analysis">
+    <meta name="author" content="James Williams, Platial Atlas Research Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="PlaceCrafter - Advanced Platial Clustering Methodology">
+    <meta property="og:description" content="Advanced methodology for curating functional regions through platial clustering of OpenStreetMap points of interest.">
+    <meta property="og:image" content="./images/promo/platial-light.png">
+    <meta property="og:url" content="https://platiatatlas.org/placecrafter">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PlaceCrafter - Advanced Platial Clustering Methodology">
+    <meta name="twitter:description" content="Advanced methodology for curating functional regions through platial clustering of OpenStreetMap points of interest.">
+    <meta name="twitter:image" content="./images/promo/platial-light.png">
+    
+    <title>PlaceCrafter - Advanced Platial Clustering | Platial Atlas</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./css/style.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PlaceCrafter",
+        "description": "Advanced methodology for curating functional regions through platial clustering of OpenStreetMap points of interest.",
+        "url": "https://platiatatlas.org/placecrafter",
+        "author": {
+            "@type": "Person",
+            "name": "James Williams"
+        },
+        "applicationCategory": "Scientific Software",
+        "operatingSystem": "Cross-platform",
+        "keywords": "PlaceCrafter, platial clustering, OpenStreetMap, functional regions, platial geography, urban analytics, place analysis"
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="./index.html">
+                <img src="./images/logo-white.png" alt="Platial Atlas Logo" height="32">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#methodology">Methodology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#impact">Impact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#research">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section position-relative overflow-hidden text-white" style="background: linear-gradient(rgba(30, 58, 95, 0.8), rgba(30, 58, 95, 0.8)), url('./images/placeCrafter/placecrafter-map-cover.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="row align-items-center min-vh-100 py-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="hero-content py-5">
+                        <div class="mb-4 fade-in-up">
+                            <img src="./images/placeCrafter/placecrafter-logo.png" alt="PlaceCrafter Logo" class="img-fluid" style="max-height: 120px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+                        </div>
+                        <p class="lead mb-4 fade-in-up" style="animation-delay: 0.4s;">
+                            A web-based geospatial tool that identifies functional urban regions by clustering OpenStreetMap Points of Interest. It reveals how cities are actually used and experienced by people, rather than how they are administratively divided.
+                        </p>
+                        <div class="mb-4 fade-in-up" style="animation-delay: 0.6s;">
+                            <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" class="me-2 mb-2">
+                            <img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" alt="React" class="me-2 mb-2">
+                            <img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="TypeScript" class="me-2 mb-2">
+                            <img src="https://img.shields.io/badge/OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=white" alt="OpenStreetMap" class="me-2 mb-2">
+                        </div>
+                        <div class="hero-buttons fade-in-up" style="animation-delay: 0.8s;">
+                            <a href="#overview" class="btn btn-warning btn-lg me-3 mb-2">
+                                Explore Features
+                            </a>
+                            <a href="#installation" class="btn btn-outline-light btn-lg mb-2">
+                                Get Started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <a href="#overview" class="text-white text-decoration-none">
+                <i class="bi bi-chevron-down fs-1 animate-bounce"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Overview</h2>
+                    <p class="lead">
+                        Traditional mapping shows administrative boundaries and physical infrastructure, but PlaceCrafter uncovers the human geography of cities. By analysing clusters of cafés, museums, shops, and other points of interest, it identifies <strong>platial regions</strong>, functional areas that emerge from everyday human activity patterns.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Screenshots -->
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm h-100">
+                                <img src="./images/placeCrafter/placecrafter-demo1.png" alt="PlaceCrafter Demo 1" class="card-img-top">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold">Interactive Clustering Interface</h6>
+                                    <p class="card-text text-muted">Real-time POI analysis with multiple clustering algorithms</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm h-100">
+                                <img src="./images/placeCrafter/placecrafter-demo2.png" alt="PlaceCrafter Demo 2" class="card-img-top">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold">Functional Region Visualisation</h6>
+                                    <p class="card-text text-muted">Platial boundaries based on human activity patterns</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Features</h2>
+                    <p class="lead">
+                        PlaceCrafter provides a comprehensive suite of tools for analysing and visualising functional urban regions through OpenStreetMap data.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-cluster text-primary fs-3 me-3"></i>
+                                <h5 class="fw-bold mb-0">Real-time POI Clustering</h5>
+                            </div>
+                            <p class="text-muted">K-means, DBSCAN, and hierarchical algorithms for identifying functional regions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-funnel text-primary fs-3 me-3"></i>
+                                <h5 class="fw-bold mb-0">Interactive Filtering</h5>
+                            </div>
+                            <p class="text-muted">Filter by POI categories: tourism, leisure, commercial, historical, and more</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-graph-up text-primary fs-3 me-3"></i>
+                                <h5 class="fw-bold mb-0">Statistical Validation</h5>
+                            </div>
+                            <p class="text-muted">Spatial autocorrelation and cluster coherence metrics for quality assessment</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-globe text-primary fs-3 me-3"></i>
+                                <h5 class="fw-bold mb-0">Web-based Visualisation</h5>
+                            </div>
+                            <p class="text-muted">Multiple boundary rendering options with interactive mapping interface</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-download text-primary fs-3 me-3"></i>
+                                <h5 class="fw-bold mb-0">Export Capabilities</h5>
+                            </div>
+                            <p class="text-muted">Export results for further analysis in GIS software</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-lightning text-primary fs-3 me-3"></i>
+                                <h5 class="fw-bold mb-0">Real-time Data</h5>
+                            </div>
+                            <p class="text-muted">Live OpenStreetMap data via Overpass API for up-to-date analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Built with Modern Technology</h2>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <i class="bi bi-code-slash text-primary fs-1 mb-3"></i>
+                            <h5 class="fw-bold">React + TypeScript</h5>
+                            <p class="text-muted">Modern, type-safe web development with Vite</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <i class="bi bi-map text-primary fs-1 mb-3"></i>
+                            <h5 class="fw-bold">Leaflet + Turf.js</h5>
+                            <p class="text-muted">Interactive mapping with advanced spatial operations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <i class="bi bi-bar-chart text-primary fs-1 mb-3"></i>
+                            <h5 class="fw-bold">D3.js</h5>
+                            <p class="text-muted">Dynamic, interactive data visualisation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <i class="bi bi-database text-primary fs-1 mb-3"></i>
+                            <h5 class="fw-bold">Overpass API</h5>
+                            <p class="text-muted">Real-time OpenStreetMap data access</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation & Usage Section -->
+    <section id="installation" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Installation & Usage</h2>
+                    <p class="lead">
+                        Get started with PlaceCrafter in just a few simple steps. The application runs in your web browser with only Node.js required.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="bi bi-download me-2"></i>Installation</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="bg-dark rounded p-3 mb-3">
+                                <code class="text-light">
+                                    git clone https://github.com/jwilliamsresearch/place-crafter<br>
+                                    cd place-crafter<br>
+                                    npm install<br>
+                                    npm run dev
+                                </code>
+                            </div>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i>
+                                <strong>Note:</strong> Repository link will be updated once public
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="bi bi-play-circle me-2"></i>Usage</h5>
+                        </div>
+                        <div class="card-body">
+                            <ol class="list-group list-group-numbered list-group-flush">
+                                <li class="list-group-item border-0 px-0">Navigate to your area of interest on the map</li>
+                                <li class="list-group-item border-0 px-0">Select POI categories to analyse (e.g., tourism, historical, leisure)</li>
+                                <li class="list-group-item border-0 px-0">Load OpenStreetMap data for the visible area</li>
+                                <li class="list-group-item border-0 px-0">Configure clustering parameters</li>
+                                <li class="list-group-item border-0 px-0">Explore the resulting functional regions with validation metrics</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation & License Section -->
+    <section id="citation" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-4">Citation & License</h2>
+                    <p class="lead">
+                        PlaceCrafter is open-source software released under the MIT License. If you use PlaceCrafter in your research, please cite the launch paper.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="bi bi-quote me-2"></i>Citation (BibTeX)</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="bg-light rounded p-3">
+                                <code class="text-dark">
+                                    @inproceedings{williams2025placecrafter,<br>
+                                    &nbsp;&nbsp;title={PlaceCrafter: Curating Urban Functional Regions through Platial Clustering of OpenStreetMap Points of Interest},<br>
+                                    &nbsp;&nbsp;author={Williams, James and Priestnall, Gary},<br>
+                                    &nbsp;&nbsp;booktitle={Proceedings of the OSMScience 2025},<br>
+                                    &nbsp;&nbsp;year={2025},<br>
+                                    &nbsp;&nbsp;address={Manila, Philippines}<br>
+                                    }
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="bi bi-shield-check me-2"></i>License</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-award text-success fs-1 me-4"></i>
+                                <div>
+                                    <h6 class="fw-bold mb-2">MIT License</h6>
+                                    <p class="text-muted mb-0">
+                                        PlaceCrafter is free and open-source software. You are free to use, modify, and distribute this software for any purpose, including commercial use, under the terms of the MIT License.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">2025 Platial Atlas. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="./index.html" class="text-white text-decoration-none me-3">Back to Main Site</a>
+                    <a href="./index.html#contact" class="text-white text-decoration-none me-3">Contact</a>
+                    <a href="#" class="text-white text-decoration-none">License: Content is CC BY 4.0. Code is MIT License.</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./js/script.js"></script>
+</body>
+</html>
