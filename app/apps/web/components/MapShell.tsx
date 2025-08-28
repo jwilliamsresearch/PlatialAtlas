@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl, { Map } from 'maplibre-gl';
 import * as h3 from 'h3-js';
-import H3CellModal from './H3CellModal';
 import { Box } from '@mui/material';
 import { fetchH3Choropleth } from '@/lib/h3';
 import { getPalette, PaletteName } from '@/lib/palettes';
@@ -10,18 +9,17 @@ import { getPalette, PaletteName } from '@/lib/palettes';
 type Props = {
   res: number;
   showGrid?: boolean;
-  sources?: string[];
   facets?: string[]; // selected facets; empty = total
   palette?: PaletteName;
   classes?: number; // number of color classes
+  onCellSelect?: (data: { h3: string; n: number; cats?: Record<string, number> } | null) => void;
 };
 
-export default function MapShell({ res, showGrid = true, sources, facets = [], palette = 'YlGnBu', classes = 5 }: Props) {
+export default function MapShell({ res, showGrid = true, facets = [], palette = 'YlGnBu', classes = 5, onCellSelect }: Props) {
   const mapRef = useRef<Map | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [ready, setReady] = useState(false);
   const [selected, setSelected] = useState<null | { h3: string; n: number; cats?: Record<string, number> }>(null);
-  const [modalOpen, setModalOpen] = useState(false);
   const eventsBound = useRef(false);
 
   useEffect(() => {
@@ -102,7 +100,7 @@ export default function MapShell({ res, showGrid = true, sources, facets = [], p
       const bbox = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].join(',');
       let fc: any = { type: 'FeatureCollection', features: [] };
       try {
-        fc = await fetchH3Choropleth(res, bbox, sources, facets);
+        fc = await fetchH3Choropleth(res, bbox, undefined, facets);
       } catch (err) {
         // Fallback: compute grid client-side with zero counts
         try {
@@ -128,15 +126,58 @@ export default function MapShell({ res, showGrid = true, sources, facets = [], p
           console.error('choropleth fetch failed; fallback grid error', e);
         }
       }
-      // Compute color stops based on current data max
-      const values = (fc.features || []).map((f: any) => Number(f.properties?.n ?? 0));
-      const max = Math.max(1, ...values, 0);
+      // Compute color stops based on current data distribution (percentile-based for better dispersion)
+      const values: number[] = (fc.features || []).map((f: any) => Number(f.properties?.n ?? 0)).filter((v: number) => v > 0);
+      if (values.length === 0) {
+        // No data, use default scale
+        const colors = getPalette(palette, classes);
+        const steps: any[] = ['step', ['get', 'n'], colors[0]];
+        for (let i = 1; i < colors.length; i++) {
+          steps.push(i, colors[i]);
+        }
+        
+        const src = m.getSource(sourceId) as maplibregl.GeoJSONSource | undefined;
+        if (src) {
+          src.setData(fc as any);
+          m.setPaintProperty(layerId, 'fill-color', steps as any);
+        } else {
+          // Layer creation code for no data case
+          m.addSource(sourceId, { type: 'geojson', data: fc as any, generateId: true } as any);
+          m.addLayer({
+            id: layerId,
+            type: 'fill',
+            source: sourceId,
+            paint: {
+              'fill-color': steps as any,
+              'fill-opacity': 0.7,
+              'fill-outline-color': '#000',
+            }
+          });
+          m.addLayer({
+            id: `${layerId}-stroke`,
+            type: 'line',
+            source: sourceId,
+            paint: {
+              'line-color': '#fff',
+              'line-width': ['interpolate', ['linear'], ['zoom'], 5, 0.1, 10, 0.5],
+              'line-opacity': 0.5,
+            }
+          });
+        }
+        return;
+      }
+      
+      // Sort values to calculate percentiles for better color distribution
+      values.sort((a: number, b: number) => a - b);
       const colors = getPalette(palette, classes);
-      // Build a step expression: low->high
       const steps: any[] = ['step', ['get', 'n'], colors[0]];
+      
+      // Use percentile-based thresholds instead of linear distribution
       for (let i = 1; i < colors.length; i++) {
-        const t = (i / (colors.length - 1)) * max;
-        steps.push(t, colors[i]);
+        const percentile = i / (colors.length - 1);
+        const index = Math.floor(percentile * (values.length - 1));
+        const threshold = values[index];
+        steps.push(threshold, colors[i]);
       }
 
       const src = m.getSource(sourceId) as maplibregl.GeoJSONSource | undefined;
@@ -158,7 +199,7 @@ export default function MapShell({ res, showGrid = true, sources, facets = [], p
               ['boolean', ['feature-state', 'hover'], false], 0.75,
               0.55,
             ],
-            'fill-color': steps,
+            'fill-color': steps as any,
             'fill-outline-color': [
               'case',
               ['boolean', ['feature-state', 'hover'], false], '#111',
@@ -211,7 +252,7 @@ export default function MapShell({ res, showGrid = true, sources, facets = [], p
     if (!m) return;
     m.on('moveend', update);
     return () => { if (m) m.off('moveend', update); };
-  }, [res, ready, showGrid, sources, facets, palette, classes]);
+  }, [res, ready, showGrid, facets, palette, classes]);
 
   // Bind click/hover events once layers are present
   useEffect(() => {
@@ -229,8 +270,9 @@ export default function MapShell({ res, showGrid = true, sources, facets = [], p
             try { cats = JSON.parse(cats); } catch { cats = {}; }
           }
           if (!cats || typeof cats !== 'object') cats = {};
-          setSelected({ h3: p.h3, n, cats });
-          setModalOpen(true);
+          const cellData = { h3: p.h3, n, cats };
+          setSelected(cellData);
+          onCellSelect?.(cellData);
         };
         let hoveredId: number | null = null;
         const hoverEnter = (e: any) => {
@@ -278,12 +320,11 @@ export default function MapShell({ res, showGrid = true, sources, facets = [], p
         }
       } catch {}
     };
-  }, [ready]);
+  }, [ready, onCellSelect]);
 
   return (
     <Box sx={{ width: '100%', height: '100%' }}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
-      <H3CellModal open={modalOpen} onClose={() => setModalOpen(false)} data={selected} />
     </Box>
   );
 }

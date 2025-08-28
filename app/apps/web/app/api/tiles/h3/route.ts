@@ -61,12 +61,34 @@ export async function GET(req: NextRequest) {
             SELECT p.h3_r10 AS h3,
                    COUNT(*)::int AS n,
                    jsonb_build_object(
-                     'community', COUNT(*) FILTER (WHERE p.category='community'),
-                     'commerce',  COUNT(*) FILTER (WHERE p.category='commerce'),
-                     'culture',   COUNT(*) FILTER (WHERE p.category='culture'),
-                     'nature',    COUNT(*) FILTER (WHERE p.category='nature'),
-                     'heritage',  COUNT(*) FILTER (WHERE p.category='heritage'),
-                     'building',  COUNT(*) FILTER (WHERE p.category='building')
+                     'amenity', COUNT(*) FILTER (WHERE p.category='amenity'),
+                     'shop', COUNT(*) FILTER (WHERE p.category='shop'),
+                     'tourism', COUNT(*) FILTER (WHERE p.category='tourism'),
+                     'leisure', COUNT(*) FILTER (WHERE p.category='leisure'),
+                     'landuse', COUNT(*) FILTER (WHERE p.category='landuse'),
+                     'natural', COUNT(*) FILTER (WHERE p.category='natural'),
+                     'historic', COUNT(*) FILTER (WHERE p.category='historic'),
+                     'heritage', COUNT(*) FILTER (WHERE p.category='heritage'),
+                     'office', COUNT(*) FILTER (WHERE p.category='office'),
+                     'craft', COUNT(*) FILTER (WHERE p.category='craft'),
+                     'aeroway', COUNT(*) FILTER (WHERE p.category='aeroway'),
+                     'aerialway', COUNT(*) FILTER (WHERE p.category='aerialway'),
+                     'railway', COUNT(*) FILTER (WHERE p.category='railway'),
+                     'public_transport', COUNT(*) FILTER (WHERE p.category='public_transport'),
+                     'man_made', COUNT(*) FILTER (WHERE p.category='man_made'),
+                     'healthcare', COUNT(*) FILTER (WHERE p.category='healthcare'),
+                     'emergency', COUNT(*) FILTER (WHERE p.category='emergency'),
+                     'club', COUNT(*) FILTER (WHERE p.category='club'),
+                     'building', COUNT(*) FILTER (WHERE p.category='building'),
+                     'sport', COUNT(*) FILTER (WHERE p.category='sport'),
+                     'education', COUNT(*) FILTER (WHERE p.category='education'),
+                     'place', COUNT(*) FILTER (WHERE p.category='place'),
+                     'waterway', COUNT(*) FILTER (WHERE p.category='waterway'),
+                     'highway', COUNT(*) FILTER (WHERE p.category='highway'),
+                     'power', COUNT(*) FILTER (WHERE p.category='power'),
+                     'barrier', COUNT(*) FILTER (WHERE p.category='barrier'),
+                     'boundary', COUNT(*) FILTER (WHERE p.category='boundary'),
+                     'route', COUNT(*) FILTER (WHERE p.category='route')
                    ) AS cats
             FROM poi p
             WHERE p.h3_r10 IS NOT NULL
@@ -81,14 +103,44 @@ export async function GET(req: NextRequest) {
         const sql = `
           WITH agg AS (
             SELECT p.h3_r10 AS h3,
-                   SUM((CASE WHEN p.category = ANY($2::text[]) THEN 1 ELSE 0 END)::int)::int AS n
+                   SUM((CASE WHEN p.category = ANY($2::text[]) THEN 1 ELSE 0 END)::int)::int AS n,
+                   jsonb_build_object(
+                     'amenity', COUNT(*) FILTER (WHERE p.category='amenity' AND p.category = ANY($2::text[])),
+                     'shop', COUNT(*) FILTER (WHERE p.category='shop' AND p.category = ANY($2::text[])),
+                     'tourism', COUNT(*) FILTER (WHERE p.category='tourism' AND p.category = ANY($2::text[])),
+                     'leisure', COUNT(*) FILTER (WHERE p.category='leisure' AND p.category = ANY($2::text[])),
+                     'landuse', COUNT(*) FILTER (WHERE p.category='landuse' AND p.category = ANY($2::text[])),
+                     'natural', COUNT(*) FILTER (WHERE p.category='natural' AND p.category = ANY($2::text[])),
+                     'historic', COUNT(*) FILTER (WHERE p.category='historic' AND p.category = ANY($2::text[])),
+                     'heritage', COUNT(*) FILTER (WHERE p.category='heritage' AND p.category = ANY($2::text[])),
+                     'office', COUNT(*) FILTER (WHERE p.category='office' AND p.category = ANY($2::text[])),
+                     'craft', COUNT(*) FILTER (WHERE p.category='craft' AND p.category = ANY($2::text[])),
+                     'aeroway', COUNT(*) FILTER (WHERE p.category='aeroway' AND p.category = ANY($2::text[])),
+                     'aerialway', COUNT(*) FILTER (WHERE p.category='aerialway' AND p.category = ANY($2::text[])),
+                     'railway', COUNT(*) FILTER (WHERE p.category='railway' AND p.category = ANY($2::text[])),
+                     'public_transport', COUNT(*) FILTER (WHERE p.category='public_transport' AND p.category = ANY($2::text[])),
+                     'man_made', COUNT(*) FILTER (WHERE p.category='man_made' AND p.category = ANY($2::text[])),
+                     'healthcare', COUNT(*) FILTER (WHERE p.category='healthcare' AND p.category = ANY($2::text[])),
+                     'emergency', COUNT(*) FILTER (WHERE p.category='emergency' AND p.category = ANY($2::text[])),
+                     'club', COUNT(*) FILTER (WHERE p.category='club' AND p.category = ANY($2::text[])),
+                     'building', COUNT(*) FILTER (WHERE p.category='building' AND p.category = ANY($2::text[])),
+                     'sport', COUNT(*) FILTER (WHERE p.category='sport' AND p.category = ANY($2::text[])),
+                     'education', COUNT(*) FILTER (WHERE p.category='education' AND p.category = ANY($2::text[])),
+                     'place', COUNT(*) FILTER (WHERE p.category='place' AND p.category = ANY($2::text[])),
+                     'waterway', COUNT(*) FILTER (WHERE p.category='waterway' AND p.category = ANY($2::text[])),
+                     'highway', COUNT(*) FILTER (WHERE p.category='highway' AND p.category = ANY($2::text[])),
+                     'power', COUNT(*) FILTER (WHERE p.category='power' AND p.category = ANY($2::text[])),
+                     'barrier', COUNT(*) FILTER (WHERE p.category='barrier' AND p.category = ANY($2::text[])),
+                     'boundary', COUNT(*) FILTER (WHERE p.category='boundary' AND p.category = ANY($2::text[])),
+                     'route', COUNT(*) FILTER (WHERE p.category='route' AND p.category = ANY($2::text[]))
+                   ) AS cats
             FROM poi p
             WHERE p.h3_r10 IS NOT NULL
               AND p.h3_r10 = ANY($1::text[])
               ${sources.length ? 'AND p.source = ANY($3::text[])' : ''}
             GROUP BY p.h3_r10
           )
-          SELECT h3, n, '{}'::jsonb AS cats FROM agg`;
+          SELECT h3, n, cats FROM agg`;
         const params: any[] = [cells, facetList];
         if (sources.length) params.push(sources);
         const r = await query(sql, params);
@@ -102,12 +154,34 @@ export async function GET(req: NextRequest) {
             SELECT m.parent_r${res} AS h3,
                    COUNT(*)::int AS n,
                    jsonb_build_object(
-                     'community', COUNT(*) FILTER (WHERE p.category='community'),
-                     'commerce',  COUNT(*) FILTER (WHERE p.category='commerce'),
-                     'culture',   COUNT(*) FILTER (WHERE p.category='culture'),
-                     'nature',    COUNT(*) FILTER (WHERE p.category='nature'),
-                     'heritage',  COUNT(*) FILTER (WHERE p.category='heritage'),
-                     'building',  COUNT(*) FILTER (WHERE p.category='building')
+                     'amenity', COUNT(*) FILTER (WHERE p.category='amenity'),
+                     'shop', COUNT(*) FILTER (WHERE p.category='shop'),
+                     'tourism', COUNT(*) FILTER (WHERE p.category='tourism'),
+                     'leisure', COUNT(*) FILTER (WHERE p.category='leisure'),
+                     'landuse', COUNT(*) FILTER (WHERE p.category='landuse'),
+                     'natural', COUNT(*) FILTER (WHERE p.category='natural'),
+                     'historic', COUNT(*) FILTER (WHERE p.category='historic'),
+                     'heritage', COUNT(*) FILTER (WHERE p.category='heritage'),
+                     'office', COUNT(*) FILTER (WHERE p.category='office'),
+                     'craft', COUNT(*) FILTER (WHERE p.category='craft'),
+                     'aeroway', COUNT(*) FILTER (WHERE p.category='aeroway'),
+                     'aerialway', COUNT(*) FILTER (WHERE p.category='aerialway'),
+                     'railway', COUNT(*) FILTER (WHERE p.category='railway'),
+                     'public_transport', COUNT(*) FILTER (WHERE p.category='public_transport'),
+                     'man_made', COUNT(*) FILTER (WHERE p.category='man_made'),
+                     'healthcare', COUNT(*) FILTER (WHERE p.category='healthcare'),
+                     'emergency', COUNT(*) FILTER (WHERE p.category='emergency'),
+                     'club', COUNT(*) FILTER (WHERE p.category='club'),
+                     'building', COUNT(*) FILTER (WHERE p.category='building'),
+                     'sport', COUNT(*) FILTER (WHERE p.category='sport'),
+                     'education', COUNT(*) FILTER (WHERE p.category='education'),
+                     'place', COUNT(*) FILTER (WHERE p.category='place'),
+                     'waterway', COUNT(*) FILTER (WHERE p.category='waterway'),
+                     'highway', COUNT(*) FILTER (WHERE p.category='highway'),
+                     'power', COUNT(*) FILTER (WHERE p.category='power'),
+                     'barrier', COUNT(*) FILTER (WHERE p.category='barrier'),
+                     'boundary', COUNT(*) FILTER (WHERE p.category='boundary'),
+                     'route', COUNT(*) FILTER (WHERE p.category='route')
                    ) AS cats
           FROM poi p
           JOIN ${mapTable} m ON m.child_h3_r10 = p.h3_r10
@@ -123,7 +197,37 @@ export async function GET(req: NextRequest) {
         const sql = `
           WITH agg AS (
             SELECT m.parent_r${res} AS h3,
-                   SUM((CASE WHEN p.category = ANY($2::text[]) THEN 1 ELSE 0 END)::int)::int AS n
+                   SUM((CASE WHEN p.category = ANY($2::text[]) THEN 1 ELSE 0 END)::int)::int AS n,
+                   jsonb_build_object(
+                     'amenity', COUNT(*) FILTER (WHERE p.category='amenity' AND p.category = ANY($2::text[])),
+                     'shop', COUNT(*) FILTER (WHERE p.category='shop' AND p.category = ANY($2::text[])),
+                     'tourism', COUNT(*) FILTER (WHERE p.category='tourism' AND p.category = ANY($2::text[])),
+                     'leisure', COUNT(*) FILTER (WHERE p.category='leisure' AND p.category = ANY($2::text[])),
+                     'landuse', COUNT(*) FILTER (WHERE p.category='landuse' AND p.category = ANY($2::text[])),
+                     'natural', COUNT(*) FILTER (WHERE p.category='natural' AND p.category = ANY($2::text[])),
+                     'historic', COUNT(*) FILTER (WHERE p.category='historic' AND p.category = ANY($2::text[])),
+                     'heritage', COUNT(*) FILTER (WHERE p.category='heritage' AND p.category = ANY($2::text[])),
+                     'office', COUNT(*) FILTER (WHERE p.category='office' AND p.category = ANY($2::text[])),
+                     'craft', COUNT(*) FILTER (WHERE p.category='craft' AND p.category = ANY($2::text[])),
+                     'aeroway', COUNT(*) FILTER (WHERE p.category='aeroway' AND p.category = ANY($2::text[])),
+                     'aerialway', COUNT(*) FILTER (WHERE p.category='aerialway' AND p.category = ANY($2::text[])),
+                     'railway', COUNT(*) FILTER (WHERE p.category='railway' AND p.category = ANY($2::text[])),
+                     'public_transport', COUNT(*) FILTER (WHERE p.category='public_transport' AND p.category = ANY($2::text[])),
+                     'man_made', COUNT(*) FILTER (WHERE p.category='man_made' AND p.category = ANY($2::text[])),
+                     'healthcare', COUNT(*) FILTER (WHERE p.category='healthcare' AND p.category = ANY($2::text[])),
+                     'emergency', COUNT(*) FILTER (WHERE p.category='emergency' AND p.category = ANY($2::text[])),
+                     'club', COUNT(*) FILTER (WHERE p.category='club' AND p.category = ANY($2::text[])),
+                     'building', COUNT(*) FILTER (WHERE p.category='building' AND p.category = ANY($2::text[])),
+                     'sport', COUNT(*) FILTER (WHERE p.category='sport' AND p.category = ANY($2::text[])),
+                     'education', COUNT(*) FILTER (WHERE p.category='education' AND p.category = ANY($2::text[])),
+                     'place', COUNT(*) FILTER (WHERE p.category='place' AND p.category = ANY($2::text[])),
+                     'waterway', COUNT(*) FILTER (WHERE p.category='waterway' AND p.category = ANY($2::text[])),
+                     'highway', COUNT(*) FILTER (WHERE p.category='highway' AND p.category = ANY($2::text[])),
+                     'power', COUNT(*) FILTER (WHERE p.category='power' AND p.category = ANY($2::text[])),
+                     'barrier', COUNT(*) FILTER (WHERE p.category='barrier' AND p.category = ANY($2::text[])),
+                     'boundary', COUNT(*) FILTER (WHERE p.category='boundary' AND p.category = ANY($2::text[])),
+                     'route', COUNT(*) FILTER (WHERE p.category='route' AND p.category = ANY($2::text[]))
+                   ) AS cats
             FROM poi p
             JOIN ${mapTable} m ON m.child_h3_r10 = p.h3_r10
             WHERE p.h3_r10 IS NOT NULL
@@ -131,7 +235,7 @@ export async function GET(req: NextRequest) {
               ${sources.length ? 'AND p.source = ANY($3::text[])' : ''}
             GROUP BY m.parent_r${res}
           )
-          SELECT h3, n, '{}'::jsonb AS cats FROM agg`;
+          SELECT h3, n, cats FROM agg`;
         const params: any[] = [cells, facetList];
         if (sources.length) params.push(sources);
         const r = await query(sql, params);

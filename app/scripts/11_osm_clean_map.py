@@ -8,37 +8,23 @@ os.makedirs("data/staging", exist_ok=True)
 
 def map_category(tags):
     """
-    Map OSM tags to a broad category/facet. For now, prefer the top-level key present.
-    This is compatible with the UI "Facet" selector and can be refined to 29+ buckets.
+    Map OSM tags to a broad category/facet matching the 29 categories in facets.ts exactly.
+    This ensures compatibility with the UI facet filtering system.
     """
-    order = [
-        'amenity','shop','tourism','leisure','landuse','natural','historic','heritage','office','craft',
-        'aeroway','aerialway','railway','public_transport','man_made','healthcare','emergency',
-        'club','building','sport','education','place','waterway','highway','power','barrier',
-        'boundary','route'
+    # Primary categories matching facets.ts exactly (excluding 'n' which is for totals)
+    facet_keys = [
+        'amenity', 'shop', 'tourism', 'leisure', 'landuse', 'natural', 'historic', 'heritage',
+        'office', 'craft', 'aeroway', 'aerialway', 'railway', 'public_transport', 'man_made',
+        'healthcare', 'emergency', 'club', 'building', 'sport', 'education', 'place',
+        'waterway', 'highway', 'power', 'barrier', 'boundary', 'route'
     ]
-    for k in order:
-        if k in tags:
-            return k
-    # Fallbacks to previous 5-bucket model when possible
-    amenity = tags.get("amenity")
-    tourism = tags.get("tourism")
-    leisure = tags.get("leisure")
-    landuse = tags.get("landuse")
-    natural = tags.get("natural")
-    historic = tags.get("historic")
-    heritage = tags.get("heritage")
-    shop = tags.get("shop")
-    if amenity in {"school","library","place_of_worship","community_centre","clinic","doctors","hospital","sports_centre","swimming_pool"}:
-        return "community"
-    if shop or amenity in {"cafe","restaurant","pub","bar","fast_food","marketplace"}:
-        return "commerce"
-    if tourism in {"museum","gallery","attraction"} or amenity in {"arts_centre","theatre"}:
-        return "culture"
-    if leisure in {"park","nature_reserve"} or landuse == "forest" or natural == "wood":
-        return "nature"
-    if historic or heritage:
-        return "heritage"
+    
+    # Return the first matching key found in tags
+    for key in facet_keys:
+        if key in tags:
+            return key
+    
+    # No category found
     return None
 
 with open(SRC, "r", encoding="utf-8") as f:
