@@ -1,0 +1,124 @@
+/* ===== ROOT VARIABLES ===== */
+:root {
+    --primary-color: #1e3a5f;
+    --secondary-color: #2d5a87;
+    --accent-color: #f39c12;
+    --accent-secondary: #e67e22;
+    --text-dark: #2c3e50;
+    --text-light: #ecf0f1;
+    --bg-light: #f8f9fa;
+    --bg-dark: #2c3e50;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+}
+
+/* ===== GLOBAL STYLES ===== */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    overflow: hidden; /* prevent body scroll; let pages manage their own */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#__next {
+    height: 100%;
+}
+
+/* Override MUI default styles to match docs */
+.MuiAppBar-root {
+    background: rgba(30, 58, 95, 0.3) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+.MuiToolbar-root {
+    padding: 1rem 2rem !important;
+}
+
+.MuiButton-root {
+    font-weight: 500 !important;
+    margin: 0 0.5rem !important;
+    transition: all 0.3s ease !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px !important;
+    text-transform: none !important;
+}
+
+.MuiButton-root:hover {
+    color: rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+.navbar-brand img {
+    height: 32px;
+    margin-right: 0.5rem;
+}
+
+/* Map layout styles */
+.map-container {
+    height: 100%; /* fill parent which is viewport minus navbar */
+    display: flex;
+    flex-direction: row; /* sidebar + map */
+}
+
+.map-content { /* if used inside map page */
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.map-sidebar {
+    width: 300px;
+    background: var(--bg-light);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+}
+
+.map-main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .map-content {
+        flex-direction: column;
+    }
+    
+    .map-sidebar {
+        width: 100%;
+        height: 200px;
+    }
+}
+

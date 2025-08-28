@@ -1,0 +1,26 @@
+{
+  "name": "platial-atlas",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm -w @platial/web run build",
+    "dev": "npm -w @platial/web run dev",
+    "lint": "npm -w @platial/web run lint",
+    "test": "npm -w @platial/web run test",
+    "test:e2e": "npm -w @platial/web run test:e2e",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "h3-js": "^4.1.0",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  }
+}
